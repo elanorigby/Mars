@@ -12,6 +12,12 @@ def files(request):
 def test_file_becomes_list(files):
     assert type(roving.opener(files)) == list
 
+
+def test_first_line():
+    mission = ['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']
+    assert roving.firstline(mission) == '5 5'
+
+
 #   Are all the characters received expected characters?
 #       must be in ('0123456789NSEWLRM ')
 
