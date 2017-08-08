@@ -1,7 +1,8 @@
 def opener(file):
         with open(file) as f:
-            misson = f.read().splitlines()
-            return misson
+            mission = f.read().splitlines()
+            return mission
 
 def firstline(mission):
-    return mission[0]
+    grid = mission.pop(0)
+    return (grid, mission)

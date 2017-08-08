@@ -15,7 +15,7 @@ def test_file_becomes_list(files):
 
 def test_first_line():
     mission = ['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']
-    assert roving.firstline(mission) == '5 5'
+    assert roving.firstline(mission) == ('5 5', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM'])
 
 
 #   Are all the characters received expected characters?
@@ -32,3 +32,4 @@ def test_first_line():
 #   Did all the rovers stay on the plateau?
 #       roverX between 0 and inputX
 #       roverY between 0 and inputY
+#
