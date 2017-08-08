@@ -2,9 +2,9 @@ import roving
 
 files = ['instructions/file1.txt', 'instructions/file2.txt']
 
-def test_file_opener():
+def test_file_becomes_list():
     for file in files:
-        assert roving.opener(file) != None
+        assert type(roving.opener(file)) == list
 
 #   Are all the characters received expected characters?
 #       must be in ('0123456789NSEWLRM ')
