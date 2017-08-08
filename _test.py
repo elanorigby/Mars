@@ -18,6 +18,11 @@ def test_first_line():
     assert roving.firstline(mission) == ('5 5', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM'])
 
 
+def test_rover_parse():
+    mission = ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']
+    start, moves, mission = roving.rovers(mission)
+    assert start == '1 2 N' and moves == 'LMLMLMLMM' and mission == ['3 3 E', 'MMRMMRMRRM']
+
 #   Are all the characters received expected characters?
 #       must be in ('0123456789NSEWLRM ')
 
