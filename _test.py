@@ -56,7 +56,7 @@ def test_turn_left(tinput, expected):
     ('E', 'S'),
     ('S', 'W'),
     ('W', 'N')
-])
+    ])
 def test_turn_right(tinput, expected):
     assert roving.turnR(tinput) == expected
 
@@ -69,7 +69,7 @@ def test_turn_wrong():
 @pytest.mark.parametrize('tinput, expected', [
     (6, 7),
     (32, 33),
-])
+    ])
 def test_move_north(tinput, expected):
     assert roving.moveN(tinput) == expected
 
@@ -77,7 +77,7 @@ def test_move_north(tinput, expected):
 @pytest.mark.parametrize('tinput, expected', [
     (6, 5),
     (32, 31),
-])
+    ])
 def test_move_south(tinput, expected):
     assert roving.moveS(tinput) == expected
 
@@ -85,7 +85,7 @@ def test_move_south(tinput, expected):
 @pytest.mark.parametrize('tinput, expected', [
     (6, 7),
     (32, 33),
-])
+    ])
 def test_move_east(tinput, expected):
     assert roving.moveE(tinput) == expected
 
@@ -93,11 +93,22 @@ def test_move_east(tinput, expected):
 @pytest.mark.parametrize('tinput, expected', [
     (6, 5),
     (32, 31),
-])
+    ])
 def test_move_west(tinput, expected):
     assert roving.moveW(tinput) == expected
 
 
+@pytest.mark.parametrize('x, y, direction, expected', [
+    (6, 44, 'N', (6, 45)),
+    (32, 11, 'W', (31, 11)),
+    ])
+def test_move(x, y, direction, expected):
+    assert roving.move(x, y, direction) == expected
+
+
+def test_move_wrong():
+    with pytest.raises(ValueError):
+        roving.move(4, 17, 'Q')
 
 #   Are all the characters received expected characters?
 #   must be in ('0123456789NSEWLRM ')

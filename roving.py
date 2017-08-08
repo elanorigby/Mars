@@ -50,17 +50,31 @@ def turn(direction, turn):
         return turnR(direction)
 
 
-def moveN(startY):
-    return startY + 1
+def moveN(y):
+    return y + 1
 
 
-def moveS(startY):
-    return startY - 1
+def moveS(y):
+    return y - 1
 
 
-def moveE(startX):
-    return startX + 1
+def moveE(x):
+    return x + 1
 
 
-def moveW(startX):
-    return startX - 1
+def moveW(x):
+    return x - 1
+
+
+def move(x, y, move_dir):
+    if move_dir not in 'NSEW':
+        raise ValueError('{} is not a valid direction'.format(move_dir))
+    if move_dir == 'N':
+        return x, moveN(y)
+    if move_dir == 'S':
+        return x, moveS(y)
+    if move_dir == 'W':
+        return moveW(x), y
+    if move_dir == 'E':
+        return moveE(x), y
+
