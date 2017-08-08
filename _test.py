@@ -12,10 +12,15 @@ def files(request):
 def test_file_becomes_list(files):
     assert type(roving.opener(files)) == list
 
-
-def test_first_line():
-    mission = ['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']
-    assert roving.firstline(mission) == ('5 5', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM'])
+@pytest.mark.parametrize('tinput, expected', [
+    (['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM'], ('5 5', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM'])),
+    (['34 56', '7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM'],
+     ('34 56', ['7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N',
+      'RMMMMLMMRMLLRMMMRM']))
+])
+def test_first_line(tinput, expected):
+    mission = tinput
+    assert roving.firstline(mission) == expected
 
 
 def test_rover_parse():
