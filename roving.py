@@ -58,5 +58,9 @@ def moveS(startY):
     return startY - 1
 
 
+def moveE(startX):
+    return startX + 1
+
+
 def moveW(startX):
     return startX - 1

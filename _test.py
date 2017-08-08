@@ -83,6 +83,14 @@ def test_move_south(tinput, expected):
 
 
 @pytest.mark.parametrize('tinput, expected', [
+    (6, 7),
+    (32, 33),
+])
+def test_move_east(tinput, expected):
+    assert roving.moveE(tinput) == expected
+
+
+@pytest.mark.parametrize('tinput, expected', [
     (6, 5),
     (32, 31),
 ])
