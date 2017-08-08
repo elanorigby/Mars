@@ -48,3 +48,7 @@ def turn(direction, turn):
         return turnL(direction)
     if turn == 'R':
         return turnR(direction)
+
+
+def moveN(startY):
+    return startY + 1

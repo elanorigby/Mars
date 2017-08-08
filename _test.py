@@ -65,16 +65,22 @@ def test_turn_wrong():
     with pytest.raises(ValueError):
         roving.turn('Q', 'L')
 
-        #   Are all the characters received expected characters?
-#       must be in ('0123456789NSEWLRM ')
+
+@pytest.mark.parametrize('tinput, expected', [
+    (6, 7),
+    (32, 33),
+])
+def test_move_north(tinput, expected):
+    assert roving.moveN(tinput) == expected
+
+
+#   Are all the characters received expected characters?
+#   must be in ('0123456789NSEWLRM ')
 
 #   Did all the rovers land on the plateau?
 #       For each rover:
 #           roverX between 0 and inputX
 #           roverY between 0 and inputY
-#   turnR(direction) -> correct new direction
-#   turnL(direction) -> correct new direction
-#   move(direction, coords) -> correct new coords
 
 #   Did all the rovers stay on the plateau?
 #       roverX between 0 and inputX
