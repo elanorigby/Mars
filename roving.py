@@ -40,3 +40,11 @@ def turnR(direction):
         return 'W'
     if direction == 'W':
         return 'N'
+
+def turn(direction, turn):
+    if direction not in 'NSEW':
+        raise ValueError('{} is not a valid direction'.format(direction))
+    if turn == 'L':
+        return turnL(direction)
+    if turn == 'R':
+        return turnR(direction)

@@ -50,9 +50,6 @@ def test_turn_left(tinput, expected):
     assert roving.turnL(tinput) == expected
 
 
-def test_turn_left_wrong():
-    with pytest.raises(ValueError):
-        roving.turnL('Q')
 
 @pytest.mark.parametrize('tinput, expected', [
     ('N', 'E'),
@@ -64,10 +61,9 @@ def test_turn_right(tinput, expected):
     assert roving.turnR(tinput) == expected
 
 
-def test_turn_right_wrong():
+def test_turn_wrong():
     with pytest.raises(ValueError):
-        roving.turnR('Q')
-
+        roving.turn('Q', 'L')
 
         #   Are all the characters received expected characters?
 #       must be in ('0123456789NSEWLRM ')
