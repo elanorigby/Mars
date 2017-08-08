@@ -20,8 +20,7 @@ def test_file_becomes_list(files):
       'RMMMMLMMRMLLRMMMRM']))
 ])
 def test_first_line(tinput, expected):
-    mission = tinput
-    assert roving.firstline(mission) == expected
+    assert roving.firstline(tinput) == expected
 
 
 @pytest.mark.parametrize('tinput, expected', [
@@ -30,9 +29,9 @@ def test_first_line(tinput, expected):
      ('7 30 W', 'LMLMLMLMM', ['45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']))
 ])
 def test_rover_parse(tinput, expected):
-    mission = tinput
-    start, moves, mission = roving.rovers(mission)
+    start, moves, mission = roving.rovers(tinput)
     assert (start, moves, mission) == expected
+
 
 #   Are all the characters received expected characters?
 #       must be in ('0123456789NSEWLRM ')
