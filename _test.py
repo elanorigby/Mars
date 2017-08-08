@@ -50,6 +50,10 @@ def test_turn_left(tinput, expected):
     assert roving.turnL(tinput) == expected
 
 
+def test_turn_left_wrong():
+    with pytest.raises(ValueError):
+        roving.turnL('Q')
+
 @pytest.mark.parametrize('tinput, expected', [
     ('N', 'E'),
     ('E', 'S'),
