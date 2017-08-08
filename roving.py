@@ -56,3 +56,7 @@ def moveN(startY):
 
 def moveS(startY):
     return startY - 1
+
+
+def moveW(startX):
+    return startX - 1
