@@ -1,8 +1,7 @@
 def opener(file):
         with open(file) as f:
-            misson = f.readlines()
+            misson = f.read().splitlines()
             return misson
 
-def plateau(mission):
-    grid = mission[0]
-    return grid
+def firstline(mission):
+    return mission[0]
