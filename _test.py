@@ -33,9 +33,9 @@ def test_rover_parse(tinput, expected):
     assert (start, moves, mission) == expected
 
 @pytest.mark.parametrize('tinput, expected', [
-    ('1 2 N', ('1', '2', 'N')),
-    ('3 3 E', ('3', '3', 'E')),
-    ('31 34 S', ('31', '34', 'S'))
+    ('1 2 N', (1, 2, 'N')),
+    ('3 3 E', (3, 3, 'E')),
+    ('31 34 S', (31, 34, 'S'))
     ])
 def test_start_parse(tinput, expected):
     assert roving.starter(tinput) == expected

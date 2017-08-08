@@ -17,6 +17,7 @@ def rovers(mission):
 
 def starter(start):
     x, y, direction = start.split()
+    x, y = int(x), int(y)
     return x, y, direction
 
 
