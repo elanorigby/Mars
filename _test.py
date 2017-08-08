@@ -64,6 +64,11 @@ def test_turn_right(tinput, expected):
     assert roving.turnR(tinput) == expected
 
 
+def test_turn_right_wrong():
+    with pytest.raises(ValueError):
+        roving.turnR('Q')
+
+
         #   Are all the characters received expected characters?
 #       must be in ('0123456789NSEWLRM ')
 
