@@ -1,10 +1,10 @@
 import roving
 
-file1 = 'instructions/file1.txt'
+files = ['instructions/file1.txt', 'instructions/file2.txt']
 
 def test_file_opener():
-    assert roving.opener(file1) != None
-
+    for file in files:
+        assert roving.opener(file) != None
 
 #   Are all the characters received expected characters?
 #       must be in ('0123456789NSEWLRM ')
