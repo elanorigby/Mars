@@ -43,6 +43,7 @@ def turnR(facing):
         return 'N'
 
 def turn(facing, turn):
+    """ returns new facing direction"""
     if facing not in 'NSEW':
         raise ValueError('{} is not a valid facing'.format(facing))
     if turn == 'L':
@@ -68,14 +69,26 @@ def goW(x):
 
 
 def go(x, y, facing):
+    """ returns adjusted x, y, & facing"""
     if facing not in 'NSEW':
         raise ValueError('{} is not a valid facing'.format(facing))
     if facing == 'N':
-        return x, goN(y)
+        return x, goN(y), facing
     if facing == 'S':
-        return x, goS(y)
+        return x, goS(y), facing
     if facing == 'W':
-        return goW(x), y
+        return goW(x), y, facing
     if facing == 'E':
-        return goE(x), y
+        return goE(x), y, facing
 
+
+def drive(x, y, facing, move):
+    """ returns x, y, facing"""
+    if move not in 'RLM':
+        raise ValueError('{} is not a legit move'.format(move))
+
+    if move in 'RL':
+        return x, y, turn(facing, move)
+
+    if move == 'M':
+        return go(x, y, facing)
