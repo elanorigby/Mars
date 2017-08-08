@@ -29,8 +29,8 @@ def test_first_line(tinput, expected):
      ('7 30 W', 'LMLMLMLMM', ['45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']))
     ])
 def test_rover_parse(tinput, expected):
-    start, moves, mission = roving.rovers(tinput)
-    assert (start, moves, mission) == expected
+    start, gos, mission = roving.rovers(tinput)
+    assert (start, gos, mission) == expected
 
 @pytest.mark.parametrize('tinput, expected', [
     ('1 2 N', (1, 2, 'N')),
@@ -70,45 +70,46 @@ def test_turn_wrong():
     (6, 7),
     (32, 33),
     ])
-def test_move_north(tinput, expected):
-    assert roving.moveN(tinput) == expected
+def test_go_north(tinput, expected):
+    assert roving.goN(tinput) == expected
 
 
 @pytest.mark.parametrize('tinput, expected', [
     (6, 5),
     (32, 31),
     ])
-def test_move_south(tinput, expected):
-    assert roving.moveS(tinput) == expected
+def test_go_south(tinput, expected):
+    assert roving.goS(tinput) == expected
 
 
 @pytest.mark.parametrize('tinput, expected', [
     (6, 7),
     (32, 33),
     ])
-def test_move_east(tinput, expected):
-    assert roving.moveE(tinput) == expected
+def test_go_east(tinput, expected):
+    assert roving.goE(tinput) == expected
 
 
 @pytest.mark.parametrize('tinput, expected', [
     (6, 5),
     (32, 31),
     ])
-def test_move_west(tinput, expected):
-    assert roving.moveW(tinput) == expected
+def test_go_west(tinput, expected):
+    assert roving.goW(tinput) == expected
 
 
-@pytest.mark.parametrize('x, y, direction, expected', [
+@pytest.mark.parametrize('x, y, facing, expected', [
     (6, 44, 'N', (6, 45)),
     (32, 11, 'W', (31, 11)),
     ])
-def test_move(x, y, direction, expected):
-    assert roving.move(x, y, direction) == expected
+def test_go(x, y, facing, expected):
+    assert roving.go(x, y, facing) == expected
 
 
-def test_move_wrong():
+def test_go_wrong():
     with pytest.raises(ValueError):
-        roving.move(4, 17, 'Q')
+        roving.go(4, 17, 'Q')
+        
 
 #   Are all the characters received expected characters?
 #   must be in ('0123456789NSEWLRM ')

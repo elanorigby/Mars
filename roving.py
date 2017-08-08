@@ -16,66 +16,66 @@ def rovers(mission):
 
 
 def starter(start):
-    x, y, direction = start.split()
+    x, y, facing = start.split()
     x, y = int(x), int(y)
-    return x, y, direction
+    return x, y, facing
 
 
-def turnL(direction):
-    if direction == 'N':
+def turnL(facing):
+    if facing == 'N':
         return 'W'
-    if direction == 'W':
+    if facing == 'W':
         return 'S'
-    if direction == 'S':
+    if facing == 'S':
         return 'E'
-    if direction == 'E':
+    if facing == 'E':
         return 'N'
 
 
-def turnR(direction):
-    if direction == 'N':
+def turnR(facing):
+    if facing == 'N':
         return 'E'
-    if direction == 'E':
+    if facing == 'E':
         return 'S'
-    if direction == 'S':
+    if facing == 'S':
         return 'W'
-    if direction == 'W':
+    if facing == 'W':
         return 'N'
 
-def turn(direction, turn):
-    if direction not in 'NSEW':
-        raise ValueError('{} is not a valid direction'.format(direction))
+def turn(facing, turn):
+    if facing not in 'NSEW':
+        raise ValueError('{} is not a valid facing'.format(facing))
     if turn == 'L':
-        return turnL(direction)
+        return turnL(facing)
     if turn == 'R':
-        return turnR(direction)
+        return turnR(facing)
 
 
-def moveN(y):
+def goN(y):
     return y + 1
 
 
-def moveS(y):
+def goS(y):
     return y - 1
 
 
-def moveE(x):
+def goE(x):
     return x + 1
 
 
-def moveW(x):
+def goW(x):
     return x - 1
 
 
-def move(x, y, move_dir):
-    if move_dir not in 'NSEW':
-        raise ValueError('{} is not a valid direction'.format(move_dir))
-    if move_dir == 'N':
-        return x, moveN(y)
-    if move_dir == 'S':
-        return x, moveS(y)
-    if move_dir == 'W':
-        return moveW(x), y
-    if move_dir == 'E':
-        return moveE(x), y
+def go(x, y, facing):
+    if facing not in 'NSEW':
+        raise ValueError('{} is not a valid facing'.format(facing))
+    if facing == 'N':
+        return x, goN(y)
+    if facing == 'S':
+        return x, goS(y)
+    if facing == 'W':
+        return goW(x), y
+    if facing == 'E':
+        return goE(x), y
 
