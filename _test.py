@@ -40,7 +40,14 @@ def test_rover_parse(tinput, expected):
 def test_start_parse(tinput, expected):
     assert roving.starter(tinput) == expected
 
-
+@pytest.mark.parametrize('tinput, expected', [
+    ('N', 'W'),
+    ('W', 'S'),
+    ('S', 'E'),
+    ('E', 'N')
+    ])
+def test_turn_left(tinput, expected):
+    assert roving.turnL(tinput) == expected
 
 #   Are all the characters received expected characters?
 #       must be in ('0123456789NSEWLRM ')

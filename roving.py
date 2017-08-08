@@ -19,3 +19,14 @@ def starter(start):
     x, y, direction = start.split()
     return x, y, direction
 
+
+def turnL(direction):
+    if direction == 'N':
+        return 'W'
+    if direction == 'W':
+        return 'S'
+    if direction == 'S':
+        return 'E'
+    if direction == 'E':
+        return 'N'
+
