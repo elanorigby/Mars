@@ -52,3 +52,7 @@ def turn(direction, turn):
 
 def moveN(startY):
     return startY + 1
+
+
+def moveS(startY):
+    return startY - 1

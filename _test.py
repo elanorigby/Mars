@@ -74,6 +74,14 @@ def test_move_north(tinput, expected):
     assert roving.moveN(tinput) == expected
 
 
+@pytest.mark.parametrize('tinput, expected', [
+    (6, 5),
+    (32, 31),
+])
+def test_move_south(tinput, expected):
+    assert roving.moveS(tinput) == expected
+
+
 #   Are all the characters received expected characters?
 #   must be in ('0123456789NSEWLRM ')
 
