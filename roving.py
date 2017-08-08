@@ -30,3 +30,13 @@ def turnL(direction):
     if direction == 'E':
         return 'N'
 
+
+def turnR(direction):
+    if direction == 'N':
+        return 'E'
+    if direction == 'E':
+        return 'S'
+    if direction == 'S':
+        return 'W'
+    if direction == 'W':
+        return 'N'

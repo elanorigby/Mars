@@ -49,7 +49,18 @@ def test_start_parse(tinput, expected):
 def test_turn_left(tinput, expected):
     assert roving.turnL(tinput) == expected
 
-#   Are all the characters received expected characters?
+
+@pytest.mark.parametrize('tinput, expected', [
+    ('N', 'E'),
+    ('E', 'S'),
+    ('S', 'W'),
+    ('W', 'N')
+])
+def test_turn_right(tinput, expected):
+    assert roving.turnR(tinput) == expected
+
+
+        #   Are all the characters received expected characters?
 #       must be in ('0123456789NSEWLRM ')
 
 #   Did all the rovers land on the plateau?
