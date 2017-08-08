@@ -1,10 +1,16 @@
+import pytest
+
 import roving
 
-files = ['instructions/file1.txt', 'instructions/file2.txt']
 
-def test_file_becomes_list():
-    for file in files:
-        assert type(roving.opener(file)) == list
+@pytest.fixture(params=['instructions/file1.txt', 'instructions/file2.txt'])
+def files(request):
+    yield request.param
+
+
+def test_file_becomes_list(files):
+        assert type(roving.opener(files)) == list
+
 
 #   Are all the characters received expected characters?
 #       must be in ('0123456789NSEWLRM ')
