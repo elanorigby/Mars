@@ -47,11 +47,10 @@ class Rover:
 
     def turn(self, turn):
         """ returns new facing direction"""
-
         if turn == 'L':
-            return turnL(facing)
+            return self.turnL()
         if turn == 'R':
-            return turnR(facing)
+            return self.turnR()
 
 
 def goN(y):
