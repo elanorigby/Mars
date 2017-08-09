@@ -1,18 +1,24 @@
-def opener(file):
-        with open(file) as f:
-            mission = f.read().splitlines()
-            return mission
 
+class GroundControl:
+    def __init__(self, file):
+        self.file = file
+        self.mission = self.opener()
+        self.grid, self.mission = self.firstline()
 
-def firstline(mission):
-    grid = mission.pop(0)
-    return (grid, mission)
+    def opener(self):
+            with open(self.file) as f:
+                mission = f.read().splitlines()
+                return mission
 
+    def firstline(self):
+        grid = self.mission.pop(0)
+        return grid, self.mission
 
-def rovers(mission):
-    start, moves = mission[:2]
-    del mission[:2]
-    return start, moves, mission
+    def rovers(mission):
+        start, moves = mission[:2]
+        del mission[:2]
+        return start, moves, mission
+
 
 class Rover:
     def __init__(self, start, moves):
@@ -94,6 +100,6 @@ class Rover:
             return self.go()
 
 
+
 def ongrid(roverx, rovery, gridx, gridy):
     return 0 <= roverx <= gridx and 0 <= rovery <= gridy
-
