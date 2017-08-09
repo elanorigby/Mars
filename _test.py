@@ -1,54 +1,6 @@
 import pytest
 import roving
 
-########## Control Class Tests ##########
-
-@pytest.mark.parametrize('file, expected', [
-    ('instructions/file1.txt', ['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
-    ('instructions/file2.txt', ['34 56','7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
-    ])
-def test_file_open(file, expected):
-    control = roving.Control(file)
-    assert control.opener(file) == expected
-
-@pytest.mark.parametrize('file, expected', [
-    ('instructions/file1.txt', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
-    ('instructions/file2.txt', ['7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
-    ])
-def test_mission_parse(file, expected):
-    control = roving.Control(file)
-    assert control.mission == expected
-
-
-@pytest.mark.parametrize('file, expected', [
-    ('instructions/file1.txt', '5 5'),
-    ('instructions/file2.txt', '34 56'),
-    ])
-def test_grid_parse(file, expected):
-    control = roving.Control(file)
-    assert control.grid == expected
-
-
-@pytest.mark.parametrize('file, expected', [
-    ('instructions/file1.txt', roving.Rover),
-    ('instructions/file2.txt', roving.Rover),
-    ])
-def test_rover_parse(file, expected):
-    control = roving.Control(file)
-    rovlist = control.makerovers()
-    for rov in rovlist:
-        assert isinstance(rov, expected)
-
-@pytest.mark.parametrize('file, expected', [
-    ('instructions/file1.txt', roving.Plateau),
-    ('instructions/file2.txt', roving.Plateau),
-])
-def test_plateau_parse(file, expected):
-    control = roving.Control(file)
-    plateau = control.makegrid()
-    assert isinstance(plateau, expected)
-
-
 ########## Rover Class Tests ##########
 
 @pytest.mark.parametrize('start, moves, expected', [
@@ -145,9 +97,62 @@ def test_drive(start, moves, move, expected):
     assert rov.drive(move) == expected
 
 
-@pytest.mark.parametrize('roverx, rovery, gridx, gridy, expected', [
-    (23, 2, 43, 16, True),
-    (17, 56, 13, 60, False)
+########## Control Class Tests ##########
+
+@pytest.mark.parametrize('file, expected', [
+    ('instructions/file1.txt', ['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
+    ('instructions/file2.txt', ['34 56','7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
     ])
-def test_rover_on_grid(roverx, rovery, gridx, gridy, expected):
-    assert roving.ongrid(roverx, rovery, gridx, gridy) == expected
+def test_file_open(file, expected):
+    control = roving.Control(file)
+    assert control.opener(file) == expected
+
+@pytest.mark.parametrize('file, expected', [
+    ('instructions/file1.txt', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
+    ('instructions/file2.txt', ['7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
+    ])
+def test_mission_parse(file, expected):
+    control = roving.Control(file)
+    assert control.mission == expected
+
+
+@pytest.mark.parametrize('file, expected', [
+    ('instructions/file1.txt', '5 5'),
+    ('instructions/file2.txt', '34 56'),
+    ])
+def test_grid_parse(file, expected):
+    control = roving.Control(file)
+    assert control.grid == expected
+
+
+@pytest.mark.parametrize('file, expected', [
+    ('instructions/file1.txt', roving.Rover),
+    ('instructions/file2.txt', roving.Rover),
+    ])
+def test_rover_parse(file, expected):
+    control = roving.Control(file)
+    rovlist = control.makerovers()
+    for rov in rovlist:
+        assert isinstance(rov, expected)
+
+@pytest.mark.parametrize('file, expected', [
+    ('instructions/file1.txt', roving.Plateau),
+    ('instructions/file2.txt', roving.Plateau),
+])
+def test_plateau_parse(file, expected):
+    control = roving.Control(file)
+    plateau = control.makegrid()
+    assert isinstance(plateau, expected)
+
+
+########## Report Class Tests ##########
+
+@pytest.mark.parametrize('start, moves, grid, expected', [
+    ('3 3 E', 'MM', '14 14', (3, 3, 'E')),
+    ('34 12 N', 'MM', '45 10', "Woops! This rover fell off the plateau. Nice driving, NASA.")
+    ])
+def test_report(start, moves, grid, expected):
+    plateau = roving.Plateau(grid)
+    rover = roving.Rover(start, moves)
+    report = roving.Report(plateau, rover)
+    assert report.message() == expected

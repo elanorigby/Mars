@@ -1,34 +1,7 @@
-class Control:
-    def __init__(self, file):
-        self.mission = self.opener(file)
-        self.grid, self.mission = self.firstline()
-
-    def opener(self, file):
-            with open(file) as f:
-                mission = f.read().splitlines()
-                return mission
-
-    def firstline(self):
-        grid = self.mission.pop(0)
-        return grid, self.mission
-
-    def makegrid(self):
-        return Plateau(self.grid)
-
-    def makerovers(self):
-        self.rovlist = []
-        while self.mission:
-            start, moves = self.mission[:2]
-            self.rovlist.append(Rover(start, moves))
-            del self.mission[:2]
-        print(self.rovlist)
-        return self.rovlist
-
-
 class Plateau:
     def __init__(self, grid):
-        self.x, self.x = grid.split()
-
+        x, y = grid.split()
+        self.x, self.y = int(x), int(y)
 
 class Rover:
     def __init__(self, start, moves):
@@ -109,7 +82,57 @@ class Rover:
         if move == 'M':
             return self.go()
 
+class Control:
+    def __init__(self, file):
+        self.mission = self.opener(file)
+        self.grid, self.mission = self.firstline()
+
+    def opener(self, file):
+            with open(file) as f:
+                mission = f.read().splitlines()
+                return mission
+
+    def firstline(self):
+        grid = self.mission.pop(0)
+        return grid, self.mission
+
+    def makegrid(self):
+        return Plateau(self.grid)
+
+    def makerovers(self):
+        self.rovlist = []
+        while self.mission:
+            start, moves = self.mission[:2]
+            self.rovlist.append(Rover(start, moves))
+            del self.mission[:2]
+        print(self.rovlist)
+        return self.rovlist
+
+class Report:
+    """ output rover positions """
+    def __init__(self, plateau, rover):
+        self.plateau = plateau
+        self.rover = rover
+        self.errormessage = "Woops! This rover fell off the plateau. Nice driving, NASA."
+
+    def message(self):
+        if not self.ongrid():
+            return self.errormessage
+        else:
+            return self.rover.x, self.rover.y, self.rover.facing
+
+    def ongrid(self):
+        return 0 <= self.rover.x <= self.plateau.x and 0 <= self.rover.y <= self.plateau.y
 
 
-def ongrid(roverx, rovery, gridx, gridy):
-    return 0 <= roverx <= gridx and 0 <= rovery <= gridy
+
+if __name__ == '__main__':
+    pass
+#   what do?
+#   control = Control(file)
+#   plateau = control.makegrid()
+#   roverlist = control.makerovers()
+#   for rover in roverlist:
+#       actually move rover
+#       print(Report(plateau, rover))
+
