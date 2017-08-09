@@ -69,16 +69,16 @@ class Rover:
         return self.x - 1
 
 
-def go(x, y, facing):
-    """ returns adjusted x, y, & facing"""
-    if facing == 'N':
-        return x, goN(y), facing
-    if facing == 'S':
-        return x, goS(y), facing
-    if facing == 'W':
-        return goW(x), y, facing
-    if facing == 'E':
-        return goE(x), y, facing
+    def go(self):
+        """ returns adjusted x, y, & facing"""
+        if self.facing == 'N':
+            return self.x, self.goN(), self.facing
+        if self.facing == 'S':
+            return self.x, self.goS(), self.facing
+        if self.facing == 'W':
+            return self.goW(), self.y, self.facing
+        if self.facing == 'E':
+            return self.goE(), self.y, self.facing
 
 
 def drive(x, y, facing, move):

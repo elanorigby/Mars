@@ -110,12 +110,15 @@ def test_go_west(start, moves, expected):
     assert rov.goW() == expected
 
 
-@pytest.mark.parametrize('x, y, facing, expected', [
-    (6, 44, 'N', (6, 45, 'N')),
-    (32, 11, 'W', (31, 11, 'W')),
+@pytest.mark.parametrize('start, moves, expected', [
+    ('1 2 N', 'LMLMLMLMM', (1, 3, 'N')),
+    ('3 3 E', 'MMRMMRMRRM', (4., 3, 'E')),
+    ('31 34 S', 'MMMMMMRLMMLMM', (31, 33, 'S')),
+    ('7 30 W', 'LMLMLRMLMMR', (6, 30, 'W')),
     ])
-def test_go(x, y, facing, expected):
-    assert roving.go(x, y, facing) == expected
+def test_go(start, moves, expected):
+    rov = roving.Rover(start, moves)
+    assert rov.go() == expected
 
 
 def test_go_wrong():
