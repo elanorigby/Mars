@@ -1,12 +1,10 @@
-
-class GroundControl:
+class Control:
     def __init__(self, file):
-        self.file = file
-        self.mission = self.opener()
+        self.mission = self.opener(file)
         self.grid, self.mission = self.firstline()
 
-    def opener(self):
-            with open(self.file) as f:
+    def opener(self, file):
+            with open(file) as f:
                 mission = f.read().splitlines()
                 return mission
 
@@ -14,10 +12,22 @@ class GroundControl:
         grid = self.mission.pop(0)
         return grid, self.mission
 
-    def rovers(mission):
-        start, moves = mission[:2]
-        del mission[:2]
-        return start, moves, mission
+    def makegrid(self):
+        return Plateau(self.grid)
+
+    def makerovers(self):
+        self.rovlist = []
+        while self.mission:
+            start, moves = self.mission[:2]
+            self.rovlist.append(Rover(start, moves))
+            del self.mission[:2]
+        print(self.rovlist)
+        return self.rovlist
+
+
+class Plateau:
+    def __init__(self, grid):
+        self.x, self.x = grid.split()
 
 
 class Rover:

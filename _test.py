@@ -1,37 +1,55 @@
 import pytest
-
 import roving
 
-filelist = ['instructions/file1.txt', 'instructions/file2.txt']
+########## Control Class Tests ##########
 
-
-@pytest.fixture(params=filelist)
-def files(request):
-    yield request.param
-
-
-def test_file_becomes_list(files):
-    assert type(roving.opener(files)) == list
-
-
-@pytest.mark.parametrize('tinput, expected', [
-    (['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM'], ('5 5', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM'])),
-    (['34 56', '7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM'],
-        ('34 56', ['7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM'])),
+@pytest.mark.parametrize('file, expected', [
+    ('instructions/file1.txt', ['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
+    ('instructions/file2.txt', ['34 56','7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
     ])
-def test_first_line(tinput, expected):
-    assert roving.firstline(tinput) == expected
+def test_file_open(file, expected):
+    control = roving.Control(file)
+    assert control.opener(file) == expected
 
-
-@pytest.mark.parametrize('tinput, expected', [
-    (['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM'], ('1 2 N', 'LMLMLMLMM', ['3 3 E', 'MMRMMRMRRM'])),
-    (['7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM'],
-     ('7 30 W', 'LMLMLMLMM', ['45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM'])),
+@pytest.mark.parametrize('file, expected', [
+    ('instructions/file1.txt', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
+    ('instructions/file2.txt', ['7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
     ])
-def test_rover_parse(tinput, expected):
-    start, moves, mission = roving.rovers(tinput)
-    assert (start, moves, mission) == expected
+def test_mission_parse(file, expected):
+    control = roving.Control(file)
+    assert control.mission == expected
 
+
+@pytest.mark.parametrize('file, expected', [
+    ('instructions/file1.txt', '5 5'),
+    ('instructions/file2.txt', '34 56'),
+    ])
+def test_grid_parse(file, expected):
+    control = roving.Control(file)
+    assert control.grid == expected
+
+
+@pytest.mark.parametrize('file, expected', [
+    ('instructions/file1.txt', roving.Rover),
+    ('instructions/file2.txt', roving.Rover),
+    ])
+def test_rover_parse(file, expected):
+    control = roving.Control(file)
+    rovlist = control.makerovers()
+    for rov in rovlist:
+        assert isinstance(rov, expected)
+
+@pytest.mark.parametrize('file, expected', [
+    ('instructions/file1.txt', roving.Plateau),
+    ('instructions/file2.txt', roving.Plateau),
+])
+def test_plateau_parse(file, expected):
+    control = roving.Control(file)
+    plateau = control.makegrid()
+    assert isinstance(plateau, expected)
+
+
+########## Rover Class Tests ##########
 
 @pytest.mark.parametrize('start, moves, expected', [
     ('1 2 N','LMLMLMLMM', (1, 2, 'N')),
@@ -41,7 +59,6 @@ def test_rover_parse(tinput, expected):
 def test_start_parse(start, moves, expected):
     rov = roving.Rover(start, moves)
     assert rov.starter() == expected
-
 
 @pytest.mark.parametrize('start, moves, tinput, expected', [
     ('1 2 N', 'LMLMLMLMM', 'N', 'W'),
@@ -54,7 +71,6 @@ def test_turn_left(start, moves, tinput, expected):
     rov.facing = tinput
     assert rov.turnL() == expected
 
-
 @pytest.mark.parametrize('start, moves, tinput, expected', [
     ('1 2 N', 'LMLMLMLMM', 'N', 'E'),
     ('3 3 E', 'MMRMMRMRRM', 'E', 'S'),
@@ -66,7 +82,6 @@ def test_turn_right(start, moves, tinput, expected):
     rov.facing = tinput
     assert rov.turnR() == expected
 
-
 @pytest.mark.parametrize('start, moves, tinput, expected', [
     ('1 2 N', 'LMLMLMLMM', 'R', 'E'),
     ('3 3 E', 'MMRMMRMRRM', 'L', 'N'),
@@ -77,14 +92,12 @@ def test_turn_switch(start, moves, tinput, expected):
     rov = roving.Rover(start, moves)
     assert rov.turn(tinput) == expected
 
-
 @pytest.mark.parametrize('start, moves, expected', [
     ('1 2 N', 'LMLMLMLMM', 3),
     ])
 def test_go_north(start, moves, expected):
     rov = roving.Rover(start, moves)
     assert rov.goN() == expected
-
 
 @pytest.mark.parametrize('start, moves, expected', [
     ('31 34 S', 'MMMMMMRLMMLMM', 33),
@@ -93,7 +106,6 @@ def test_go_south(start, moves, expected):
     rov = roving.Rover(start, moves)
     assert rov.goS() == expected
 
-
 @pytest.mark.parametrize('start, moves, expected', [
     ('3 3 E', 'MMRMMRMRRM', 4),
     ])
@@ -101,14 +113,12 @@ def test_go_east(start, moves, expected):
     rov = roving.Rover(start, moves)
     assert rov.goE() == expected
 
-
 @pytest.mark.parametrize('start, moves, expected', [
     ('7 30 W', 'LMLMLRMLMMR', 6),
     ])
 def test_go_west(start, moves, expected):
     rov = roving.Rover(start, moves)
     assert rov.goW() == expected
-
 
 @pytest.mark.parametrize('start, moves, expected', [
     ('1 2 N', 'LMLMLMLMM', (1, 3, 'N')),
@@ -119,7 +129,6 @@ def test_go_west(start, moves, expected):
 def test_go(start, moves, expected):
     rov = roving.Rover(start, moves)
     assert rov.go() == expected
-
 
 @pytest.mark.parametrize('start, moves, move, expected', [
     ('1 2 N', 'LMLMLMLMM', 'M', (1, 3, 'N')),
