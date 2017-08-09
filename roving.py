@@ -20,12 +20,10 @@ class Rover:
         self.moves = moves
         self.x, self.y, self.facing = self.starter()
 
-
     def starter(self):
         x, y, facing = self.start.split()
         x, y = int(x), int(y)
         return x, y, facing
-
 
     def turnL(self):
         if self.facing == 'N':
@@ -37,7 +35,6 @@ class Rover:
         if self.facing == 'E':
             return 'N'
 
-
     def turnR(self):
         if self.facing == 'N':
             return 'E'
@@ -48,15 +45,13 @@ class Rover:
         if self.facing == 'W':
             return 'N'
 
+    def turn(self, turn):
+        """ returns new facing direction"""
 
-def turn(facing, turn):
-    """ returns new facing direction"""
-    if facing not in 'NSEW':
-        raise ValueError('{} is not a valid facing'.format(facing))
-    if turn == 'L':
-        return turnL(facing)
-    if turn == 'R':
-        return turnR(facing)
+        if turn == 'L':
+            return turnL(facing)
+        if turn == 'R':
+            return turnR(facing)
 
 
 def goN(y):
@@ -77,8 +72,6 @@ def goW(x):
 
 def go(x, y, facing):
     """ returns adjusted x, y, & facing"""
-    if facing not in 'NSEW':
-        raise ValueError('{} is not a valid facing'.format(facing))
     if facing == 'N':
         return x, goN(y), facing
     if facing == 'S':
@@ -91,6 +84,9 @@ def go(x, y, facing):
 
 def drive(x, y, facing, move):
     """ returns x, y, facing"""
+    if facing not in 'NSEW':
+        raise ValueError('{} is not a valid facing'.format(facing))
+
     if move not in 'RLM':
         raise ValueError('{} is not a legit move'.format(move))
 
