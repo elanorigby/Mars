@@ -53,20 +53,20 @@ class Rover:
             return self.turnR()
 
 
-def goN(y):
-    return y + 1
+    def goN(self):
+        return self.y + 1
 
 
-def goS(y):
-    return y - 1
+    def goS(self):
+        return self.y - 1
 
 
-def goE(x):
-    return x + 1
+    def goE(self):
+        return self.x + 1
 
 
-def goW(x):
-    return x - 1
+    def goW(self):
+        return self.x - 1
 
 
 def go(x, y, facing):
