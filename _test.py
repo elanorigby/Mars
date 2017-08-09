@@ -96,6 +96,15 @@ def test_drive(start, moves, move, expected):
     rov = roving.Rover(start, moves)
     assert rov.drive(move) == expected
 
+@pytest.mark.parametrize('start, moves, expected', [
+    ('1 2 N', 'LMLMLMLMM', (1, 3, 'N')),
+    ('3 3 E', 'MMRMMRMRRM', (5, 1, 'E')),
+    ])
+def test_makeitso(start, moves, expected):
+    rov = roving.Rover(start, moves)
+    rov.makeitso()
+    assert (rov.x, rov.y, rov.facing) == expected
+
 
 ########## Control Class Tests ##########
 

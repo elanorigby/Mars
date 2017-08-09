@@ -82,6 +82,11 @@ class Rover:
         if move == 'M':
             return self.go()
 
+    def makeitso(self):
+        for move in self.moves:
+            self.x, self.y, self.facing = self.drive(move)
+
+
 class Control:
     def __init__(self, file):
         self.mission = self.opener(file)
@@ -126,13 +131,12 @@ class Report:
 
 
 
-if __name__ == '__main__':
-    pass
-#   what do?
-#   control = Control(file)
-#   plateau = control.makegrid()
-#   roverlist = control.makerovers()
-#   for rover in roverlist:
-#       actually move rover
-#       print(Report(plateau, rover))
+# if __name__ == '__main__':
+#     control = Control('instructions/file1.txt')
+#     plateau = control.makegrid()
+#     roverlist = control.makerovers()
+#     for rover in roverlist:
+#       rover.makeitso()
+#       report = Report(plateau, rover)
+#       print(report.message())
 
