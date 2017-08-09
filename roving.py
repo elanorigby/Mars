@@ -81,19 +81,17 @@ class Rover:
             return self.goE(), self.y, self.facing
 
 
-def drive(x, y, facing, move):
-    """ returns x, y, facing"""
-    if facing not in 'NSEW':
-        raise ValueError('{} is not a valid facing'.format(facing))
+    def drive(self, move):
+        """ returns x, y, facing"""
+        if self.facing not in 'NSEW':
+            raise ValueError('{} is not a valid direction to face'.format(self.facing))
+        if move not in 'RLM':
+            raise ValueError('{} is not a legit move'.format(move))
 
-    if move not in 'RLM':
-        raise ValueError('{} is not a legit move'.format(move))
-
-    if move in 'RL':
-        return x, y, turn(facing, move)
-
-    if move == 'M':
-        return go(x, y, facing)
+        if move in 'RL':
+            return self.x, self.y, self.turn(move)
+        if move == 'M':
+            return self.go()
 
 
 def ongrid(roverx, rovery, gridx, gridy):

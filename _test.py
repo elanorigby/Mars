@@ -121,17 +121,19 @@ def test_go(start, moves, expected):
     assert rov.go() == expected
 
 
-def test_go_wrong():
-    with pytest.raises(ValueError):
-        roving.go(4, 17, 'Q')
-
-
-@pytest.mark.parametrize('x, y, facing, move, expected', [
-    (3, 6, 'E', 'L', (3, 6, 'N')),
-    (12, 33, 'S', 'M', (12, 32, 'S'))
+@pytest.mark.parametrize('start, moves, move, expected', [
+    ('1 2 N', 'LMLMLMLMM', 'M', (1, 3, 'N')),
+    ('3 3 E', 'MMRMMRMRRM', 'M', (4., 3, 'E')),
+    ('31 34 S', 'MMMMMMRLMMLMM', 'M', (31, 33, 'S')),
+    ('7 30 W', 'LMLMLRMLMMR', 'M', (6, 30, 'W')),
+    ('1 2 N', 'LMLMLMLMM', 'R', (1, 2, 'E')),
+    ('3 3 E', 'MMRMMRMRRM', 'L', (3, 3, 'N')),
+    ('31 34 S', 'MMMMMMRLMMLMM', 'R', (31, 34, 'W')),
+    ('7 30 W', 'LMLMLRMLMMR', 'L', (7, 30, 'S')),
     ])
-def test_drive(x, y, facing, move, expected):
-    assert roving.drive(x, y, facing, move) == expected
+def test_drive(start, moves, move, expected):
+    rov = roving.Rover(start, moves)
+    assert rov.drive(move) == expected
 
 
 @pytest.mark.parametrize('roverx, rovery, gridx, gridy, expected', [
