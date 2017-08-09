@@ -14,11 +14,17 @@ def rovers(mission):
     del mission[:2]
     return start, moves, mission
 
+class Rover:
+    def __init__(self, start, moves):
+        self.start = start
+        self.moves = moves
+        self.x, self.y, self.facing = self.starter()
 
-def starter(start):
-    x, y, facing = start.split()
-    x, y = int(x), int(y)
-    return x, y, facing
+
+    def starter(self):
+        x, y, facing = self.start.split()
+        x, y = int(x), int(y)
+        return x, y, facing
 
 
 def turnL(facing):
@@ -92,3 +98,8 @@ def drive(x, y, facing, move):
 
     if move == 'M':
         return go(x, y, facing)
+
+
+def ongrid(roverx, rovery, gridx, gridy):
+    return 0 <= roverx <= gridx and 0 <= rovery <= gridy
+

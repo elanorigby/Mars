@@ -29,17 +29,18 @@ def test_first_line(tinput, expected):
      ('7 30 W', 'LMLMLMLMM', ['45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']))
     ])
 def test_rover_parse(tinput, expected):
-    start, gos, mission = roving.rovers(tinput)
-    assert (start, gos, mission) == expected
+    start, moves, mission = roving.rovers(tinput)
+    assert (start, moves, mission) == expected
 
 
-@pytest.mark.parametrize('tinput, expected', [
-    ('1 2 N', (1, 2, 'N')),
-    ('3 3 E', (3, 3, 'E')),
-    ('31 34 S', (31, 34, 'S'))
+@pytest.mark.parametrize('start, moves, expected', [
+    ('1 2 N','LMLMLMLMM', (1, 2, 'N')),
+    ('3 3 E', 'MMRMMRMRRM', (3, 3, 'E')),
+    ('31 34 S', 'MMMMMMRLMMLMM', (31, 34, 'S'))
     ])
-def test_start_parse(tinput, expected):
-    assert roving.starter(tinput) == expected
+def test_start_parse(start, moves, expected):
+    rov = roving.Rover(start, moves)
+    assert rov.starter() == expected
 
 
 @pytest.mark.parametrize('tinput, expected', [
@@ -119,15 +120,10 @@ def test_go_wrong():
 def test_drive(x, y, facing, move, expected):
     assert roving.drive(x, y, facing, move) == expected
 
-#   Are all the characters received expected characters?
-#   must be in ('0123456789NSEWLRM ')
 
-#   Did all the rovers land on the plateau?
-#       For each rover:
-#           roverX between 0 and inputX
-#           roverY between 0 and inputY
-
-#   Did all the rovers stay on the plateau?
-#       roverX between 0 and inputX
-#       roverY between 0 and inputY
-#
+@pytest.mark.parametrize('roverx, rovery, gridx, gridy, expected', [
+    (23, 2, 43, 16, True),
+    (17, 56, 13, 60, False)
+    ])
+def test_rover_on_grid(roverx, rovery, gridx, gridy, expected):
+    assert roving.ongrid(roverx, rovery, gridx, gridy) == expected
