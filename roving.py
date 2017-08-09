@@ -38,15 +38,16 @@ class Rover:
             return 'N'
 
 
-def turnR(facing):
-    if facing == 'N':
-        return 'E'
-    if facing == 'E':
-        return 'S'
-    if facing == 'S':
-        return 'W'
-    if facing == 'W':
-        return 'N'
+    def turnR(self):
+        if self.facing == 'N':
+            return 'E'
+        if self.facing == 'E':
+            return 'S'
+        if self.facing == 'S':
+            return 'W'
+        if self.facing == 'W':
+            return 'N'
+
 
 def turn(facing, turn):
     """ returns new facing direction"""

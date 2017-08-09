@@ -55,14 +55,16 @@ def test_turn_left(start, moves, tinput, expected):
     assert rov.turnL() == expected
 
 
-@pytest.mark.parametrize('tinput, expected', [
-    ('N', 'E'),
-    ('E', 'S'),
-    ('S', 'W'),
-    ('W', 'N')
+@pytest.mark.parametrize('start, moves, tinput, expected', [
+    ('1 2 N', 'LMLMLMLMM', 'N', 'E'),
+    ('3 3 E', 'MMRMMRMRRM', 'E', 'S'),
+    ('31 34 S', 'MMMMMMRLMMLMM', 'S', 'W'),
+    ('7 30 W', 'LMLMLRMLMMR', 'W', 'N')
     ])
-def test_turn_right(tinput, expected):
-    assert roving.turnR(tinput) == expected
+def test_turn_right(start, moves, tinput, expected):
+    rov = roving.Rover(start, moves)
+    rov.facing = tinput
+    assert rov.turnR() == expected
 
 
 def test_turn_wrong():
