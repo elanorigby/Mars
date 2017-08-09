@@ -27,15 +27,15 @@ class Rover:
         return x, y, facing
 
 
-def turnL(facing):
-    if facing == 'N':
-        return 'W'
-    if facing == 'W':
-        return 'S'
-    if facing == 'S':
-        return 'E'
-    if facing == 'E':
-        return 'N'
+    def turnL(self):
+        if self.facing == 'N':
+            return 'W'
+        if self.facing == 'W':
+            return 'S'
+        if self.facing == 'S':
+            return 'E'
+        if self.facing == 'E':
+            return 'N'
 
 
 def turnR(facing):
