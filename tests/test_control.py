@@ -7,7 +7,7 @@ from ..mission import roving
 
 @pytest.mark.parametrize('file, expected', [
     ('instructions/file1.txt', ['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
-    ('instructions/file2.txt', ['34 56','7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
+    ('instructions/file2.txt', ['34 56','7 30 W', 'LMLMLMLMM', '19 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
     ])
 def test_file_open(file, expected):
     control = roving.Control(file)
@@ -15,7 +15,7 @@ def test_file_open(file, expected):
 
 @pytest.mark.parametrize('file, expected', [
     ('instructions/file1.txt', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
-    ('instructions/file2.txt', ['7 30 W', 'LMLMLMLMM', '45 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
+    ('instructions/file2.txt', ['7 30 W', 'LMLMLMLMM', '19 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
     ])
 def test_mission_parse(file, expected):
     control = roving.Control(file)
