@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8d28e503af2a5207eb2e6fe53e8b11567cbb25cd3a16efe8370dc00cdaea7614"
+            "sha256": "c7156dbc89e5cccd45cff48ef83772de6462d832cff7db8503002fc316fa09f7"
         },
         "requires": {},
         "sources": [
@@ -12,11 +12,14 @@
         ]
     },
     "default": {
+        "coverage": {
+            "version": "==4.4.1"
+        },
         "py": {
             "version": "==1.4.34"
         },
         "pytest": {
-            "version": "==3.2.0"
+            "version": "==3.2.1"
         },
         "setuptools": {
             "version": "==36.2.7"
