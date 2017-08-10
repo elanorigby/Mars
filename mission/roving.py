@@ -103,7 +103,7 @@ class Control:
         grid = self.mission.pop(0)
         return grid, self.mission
 
-    def makegrid(self):
+    def makeplateau(self):
         return Plateau(self.grid)
 
     def makerovers(self):
@@ -134,7 +134,7 @@ class Report:
 if __name__ == '__main__':
     file = sys.argv[1]
     control = Control(file)
-    plateau = control.makegrid()
+    plateau = control.makeplateau()
     roverlist = control.makerovers()
     for rover in roverlist:
         rover.makeitso()
