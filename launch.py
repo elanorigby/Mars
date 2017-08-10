@@ -1,5 +1,5 @@
-from .control import Control
-from .report import Report
+from mission.control import Control
+from mission.report import Report
 
 import sys
 
