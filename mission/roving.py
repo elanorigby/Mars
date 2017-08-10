@@ -1,9 +1,11 @@
 import sys
 
+
 class Plateau:
     def __init__(self, grid):
         x, y = grid.split()
         self.x, self.y = int(x), int(y)
+
 
 class Rover:
     def __init__(self, start, moves):
@@ -43,22 +45,17 @@ class Rover:
         if turn == 'R':
             return self.turnR()
 
-
     def goN(self):
         return self.y + 1
-
 
     def goS(self):
         return self.y - 1
 
-
     def goE(self):
         return self.x + 1
 
-
     def goW(self):
         return self.x - 1
-
 
     def go(self):
         """ returns adjusted x, y, & facing"""
@@ -70,7 +67,6 @@ class Rover:
             return self.goW(), self.y, self.facing
         if self.facing == 'E':
             return self.goE(), self.y, self.facing
-
 
     def drive(self, move):
         """ returns x, y, facing"""
@@ -93,8 +89,10 @@ class Control:
     def __init__(self, file):
         self.mission = self.opener(file)
         self.grid, self.mission = self.firstline()
+        self.rovlist = []
 
-    def opener(self, file):
+    @staticmethod
+    def opener(file):
             with open(file) as f:
                 mission = f.read().splitlines()
                 return mission
@@ -107,12 +105,12 @@ class Control:
         return Plateau(self.grid)
 
     def makerovers(self):
-        self.rovlist = []
         while self.mission:
             start, moves = self.mission[:2]
             self.rovlist.append(Rover(start, moves))
             del self.mission[:2]
         return self.rovlist
+
 
 class Report:
     """ output rover positions """
@@ -131,14 +129,13 @@ class Report:
         return 0 <= self.rover.x <= self.plateau.x and 0 <= self.rover.y <= self.plateau.y
 
 
-
 if __name__ == '__main__':
     file = sys.argv[1]
     control = Control(file)
     plateau = control.makegrid()
     roverlist = control.makerovers()
     for rover in roverlist:
-      rover.makeitso()
-      report = Report(plateau, rover)
-      print(report.message())
+        rover.makeitso()
+        report = Report(plateau, rover)
+        print(report.message())
 
