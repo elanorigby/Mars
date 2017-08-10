@@ -1,3 +1,5 @@
+import sys
+
 class Plateau:
     def __init__(self, grid):
         x, y = grid.split()
@@ -110,7 +112,6 @@ class Control:
             start, moves = self.mission[:2]
             self.rovlist.append(Rover(start, moves))
             del self.mission[:2]
-        print(self.rovlist)
         return self.rovlist
 
 class Report:
@@ -131,12 +132,13 @@ class Report:
 
 
 
-# if __name__ == '__main__':
-#     control = Control('instructions/file1.txt')
-#     plateau = control.makegrid()
-#     roverlist = control.makerovers()
-#     for rover in roverlist:
-#       rover.makeitso()
-#       report = Report(plateau, rover)
-#       print(report.message())
+if __name__ == '__main__':
+    file = sys.argv[1]
+    control = Control(file)
+    plateau = control.makegrid()
+    roverlist = control.makerovers()
+    for rover in roverlist:
+      rover.makeitso()
+      report = Report(plateau, rover)
+      print(report.message())
 
