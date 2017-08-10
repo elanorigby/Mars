@@ -1,6 +1,12 @@
 import pytest
+import sys
+import os
 
-from ..mission import rover
+# so that the tests can find the modules they need
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/../')
+
+import mission.rover as rover
 
 
 @pytest.mark.parametrize('start, moves, expected', [

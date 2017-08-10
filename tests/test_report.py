@@ -1,9 +1,15 @@
 import pytest
+import sys
+import os
 
-from ..mission import report
-from ..mission import control
-from ..mission import rover
-from ..mission import plateau
+# so that the tests can find the modules they need
+myPath = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, myPath + '/../')
+
+import mission.control as control
+import mission.rover as rover
+import mission.plateau as plateau
+import mission.report as report
 
 @pytest.mark.parametrize('start, moves, grid, expected', [
     ('3 3 E', 'MM', '14 14', True),
