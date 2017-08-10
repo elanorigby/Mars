@@ -28,9 +28,9 @@ def test_report(start, moves, grid, expected):
 
 
 @pytest.mark.parametrize('file, expected', [
-    ('../instructions/file1.txt', [(1, 3, 'N'), (5, 1, 'E')]),
-    ('../instructions/file2.txt', [(6, 30, 'W'), (21, 21, 'E'), (33, 26, 'E'), (10, 17, 'E')]),
-    ('../instructions/file3.txt', ['Woops! This rover fell off the plateau. Nice driving, NASA.', (3, 8, 'S')]),
+    ('instructions/file1.txt', [(1, 3, 'N'), (5, 1, 'E')]),
+    ('instructions/file2.txt', [(6, 30, 'W'), (21, 21, 'E'), (33, 26, 'E'), (10, 17, 'E')]),
+    ('instructions/file3.txt', ['Woops! This rover fell off the plateau. Nice driving, NASA.', (3, 8, 'S')]),
     ])
 def test_total(file, expected):
     con = control.Control(file)

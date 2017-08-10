@@ -5,8 +5,8 @@ from ..mission import rover
 from ..mission import plateau
 
 @pytest.mark.parametrize('file, expected', [
-    ('../instructions/file1.txt', ['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
-    ('../instructions/file2.txt', ['34 56','7 30 W', 'LMLMLMLMM', '19 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
+    ('instructions/file1.txt', ['5 5', '1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
+    ('instructions/file2.txt', ['34 56','7 30 W', 'LMLMLMLMM', '19 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
     ])
 def test_file_open(file, expected):
     con = control.Control(file)
@@ -14,7 +14,7 @@ def test_file_open(file, expected):
 
 
 @pytest.mark.parametrize('file, mission', [
-    ('../instructions/file1.txt', ['5 5', '1 2 N', 'LMLMLMUMM', '3 3 E', 'MMRMMRMRRM'])
+    ('instructions/file1.txt', ['5 5', '1 2 N', 'LMLMLMUMM', '3 3 E', 'MMRMMRMRRM'])
     ])
 def test_checker(file, mission):
     con = control.Control(file)
@@ -24,8 +24,8 @@ def test_checker(file, mission):
 
 
 @pytest.mark.parametrize('file, expected', [
-    ('../instructions/file1.txt', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
-    ('../instructions/file2.txt', ['7 30 W', 'LMLMLMLMM', '19 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
+    ('instructions/file1.txt', ['1 2 N', 'LMLMLMLMM', '3 3 E', 'MMRMMRMRRM']),
+    ('instructions/file2.txt', ['7 30 W', 'LMLMLMLMM', '19 23 E', 'MMRMMRMRRM', '31 34 S', 'MMMMMMRLMMLMM', '4 12 N', 'RMMMMLMMRMLLRMMMRM']),
     ])
 def test_firstline(file, expected):
     con = control.Control(file)
@@ -33,8 +33,8 @@ def test_firstline(file, expected):
 
 
 @pytest.mark.parametrize('file, expected', [
-    ('../instructions/file1.txt', '5 5'),
-    ('../instructions/file2.txt', '34 56'),
+    ('instructions/file1.txt', '5 5'),
+    ('instructions/file2.txt', '34 56'),
     ])
 def test_grid_correct(file, expected):
     con = control.Control(file)
@@ -42,8 +42,8 @@ def test_grid_correct(file, expected):
 
 
 @pytest.mark.parametrize('file, expected', [
-    ('../instructions/file1.txt', rover.Rover),
-    ('../instructions/file2.txt', rover.Rover),
+    ('instructions/file1.txt', rover.Rover),
+    ('instructions/file2.txt', rover.Rover),
     ])
 def test_makerovers(file, expected):
     con = control.Control(file)
@@ -53,8 +53,8 @@ def test_makerovers(file, expected):
 
 
 @pytest.mark.parametrize('file, expected', [
-    ('../instructions/file1.txt', plateau.Plateau),
-    ('../instructions/file2.txt', plateau.Plateau),
+    ('instructions/file1.txt', plateau.Plateau),
+    ('instructions/file2.txt', plateau.Plateau),
 ])
 def test_makeplateau(file, expected):
     con = control.Control(file)
