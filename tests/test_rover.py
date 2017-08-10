@@ -96,8 +96,7 @@ def test_go(start, moves, expected):
     ])
 def test_drive(start, moves, move, expected):
     rov = roving.Rover(start, moves)
-    with pytest.raises(ValueError):
-        assert rov.drive(move) == expected
+    assert rov.drive(move) == expected
 
 @pytest.mark.parametrize('start, moves, move', [
     ('3 3 E', 'MMRMMRMRRM', 'G')
