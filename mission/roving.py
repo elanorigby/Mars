@@ -70,11 +70,6 @@ class Rover:
 
     def drive(self, move):
         """ returns x, y, facing"""
-        if self.facing not in 'NSEW':
-            raise ValueError('{} is not a valid direction to face'.format(self.facing))
-        if move not in 'RLM':
-            raise ValueError('{} is not a legit move'.format(move))
-
         if move in 'RL':
             return self.x, self.y, self.turn(move)
         if move == 'M':
@@ -88,14 +83,21 @@ class Rover:
 class Control:
     def __init__(self, file):
         self.mission = self.opener(file)
+        self.checker()
         self.grid, self.mission = self.firstline()
         self.rovlist = []
 
     @staticmethod
     def opener(file):
-            with open(file) as f:
-                mission = f.read().splitlines()
-                return mission
+        with open(file) as f:
+            mission = f.read().splitlines()
+            return mission
+
+    def checker(self):
+        for string in self.mission:
+            for char in string:
+                if char not in 'NSWERLM 0123456789':
+                    raise ValueError('{} is not valid input'.format(char))
 
     def firstline(self):
         grid = self.mission.pop(0)
@@ -138,4 +140,3 @@ if __name__ == '__main__':
         rover.makeitso()
         report = Report(plateau, rover)
         print(report.message())
-
