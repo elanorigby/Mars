@@ -1,6 +1,6 @@
 import pytest
 
-from ..mission import roving
+from ..mission import rover
 
 
 @pytest.mark.parametrize('start, moves, expected', [
@@ -9,7 +9,7 @@ from ..mission import roving
     ('31 34 S', 'MMMMMMRLMMLMM', (31, 34, 'S')),
     ])
 def test_start_parse(start, moves, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     assert rov.starter() == expected
 
 
@@ -20,7 +20,7 @@ def test_start_parse(start, moves, expected):
     ('7 30 W', 'LMLMLRMLMMR', 'E', 'N'),
     ])
 def test_turn_left(start, moves, tinput, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     rov.facing = tinput
     assert rov.turnL() == expected
 
@@ -32,7 +32,7 @@ def test_turn_left(start, moves, tinput, expected):
     ('7 30 W', 'LMLMLRMLMMR', 'W', 'N'),
     ])
 def test_turn_right(start, moves, tinput, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     rov.facing = tinput
     assert rov.turnR() == expected
 
@@ -44,7 +44,7 @@ def test_turn_right(start, moves, tinput, expected):
     ('7 30 W', 'LMLMLRMLMMR', 'L', 'S'),
     ])
 def test_turn_switch(start, moves, tinput, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     assert rov.turn(tinput) == expected
 
 
@@ -52,7 +52,7 @@ def test_turn_switch(start, moves, tinput, expected):
     ('1 2 N', 'LMLMLMLMM', 3),
     ])
 def test_go_north(start, moves, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     assert rov.goN() == expected
 
 
@@ -60,7 +60,7 @@ def test_go_north(start, moves, expected):
     ('31 34 S', 'MMMMMMRLMMLMM', 33),
     ])
 def test_go_south(start, moves, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     assert rov.goS() == expected
 
 
@@ -68,7 +68,7 @@ def test_go_south(start, moves, expected):
     ('3 3 E', 'MMRMMRMRRM', 4),
     ])
 def test_go_east(start, moves, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     assert rov.goE() == expected
 
 
@@ -76,7 +76,7 @@ def test_go_east(start, moves, expected):
     ('7 30 W', 'LMLMLRMLMMR', 6),
     ])
 def test_go_west(start, moves, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     assert rov.goW() == expected
 
 
@@ -87,7 +87,7 @@ def test_go_west(start, moves, expected):
     ('7 30 W', 'LMLMLRMLMMR', (6, 30, 'W')),
     ])
 def test_go(start, moves, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     assert rov.go() == expected
 
 
@@ -102,7 +102,7 @@ def test_go(start, moves, expected):
     ('7 30 W', 'LMLMLRMLMMR', 'L', (7, 30, 'S')),
     ])
 def test_drive(start, moves, move, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     assert rov.drive(move) == expected
 
 
@@ -111,6 +111,6 @@ def test_drive(start, moves, move, expected):
     ('3 3 E', 'MMRMMRMRRM', (5, 1, 'E')),
     ])
 def test_makeitso(start, moves, expected):
-    rov = roving.Rover(start, moves)
+    rov = rover.Rover(start, moves)
     rov.makeitso()
     assert (rov.x, rov.y, rov.facing) == expected
